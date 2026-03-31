@@ -4,6 +4,12 @@ import laptop3 from "@/assets/laptop-3.jpg";
 import laptop4 from "@/assets/laptop-4.jpg";
 import laptop5 from "@/assets/laptop-5.jpg";
 import laptop6 from "@/assets/laptop-6.jpg";
+import laptop7 from "@/assets/laptop-7.jpg";
+import laptop8 from "@/assets/laptop-8.jpg";
+import laptop9 from "@/assets/laptop-9.jpg";
+import laptop10 from "@/assets/laptop-10.jpg";
+import laptop11 from "@/assets/laptop-11.jpg";
+import laptop12 from "@/assets/laptop-12.jpg";
 
 export interface Laptop {
   id: string;
