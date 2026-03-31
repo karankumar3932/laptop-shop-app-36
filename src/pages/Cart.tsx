@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,10 +7,19 @@ import { toast } from "sonner";
 
 const Cart = () => {
   const { items, removeFromCart, updateQuantity, clearCart, cartCount, cartTotal } = useCart();
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
-    toast.success("Order placed successfully! 🎉");
+    const orderId = "LH" + Date.now().toString(36).toUpperCase();
+    localStorage.setItem("lastOrder", JSON.stringify({
+      items,
+      total: cartTotal,
+      orderId,
+      orderDate: new Date().toISOString(),
+    }));
     clearCart();
+    toast.success("Order placed successfully! 🎉");
+    navigate("/order-success");
   };
 
   return (
