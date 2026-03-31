@@ -30,7 +30,7 @@ const Footer = () => (
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@laptophub.com</li>
             <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +91 73529 51377</li>
-            <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Mumbai, India</li>
+            <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Chandigarh, India</li>
           </ul>
         </div>
       </div>
