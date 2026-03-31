@@ -29,7 +29,7 @@ const Footer = () => (
           <h4 className="font-heading font-semibold text-foreground">Contact Us</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> support@laptophub.com</li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +91 98765 43210</li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +91 73529 51377</li>
             <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Mumbai, India</li>
           </ul>
         </div>
