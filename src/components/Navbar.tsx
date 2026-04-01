@@ -1,9 +1,17 @@
-import { ShoppingCart, Laptop, Menu, X } from "lucide-react";
+import { ShoppingCart, Laptop, Menu, X, User, LogOut, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const Navbar = ({ cartCount = 0 }: { cartCount?: number }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Signed out successfully");
+  };
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
@@ -24,6 +32,20 @@ const Navbar = ({ cartCount = 0 }: { cartCount?: number }) => {
         </div>
 
         <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              <Link to="/my-orders" className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                <Package className="h-4 w-4" /> Orders
+              </Link>
+              <button onClick={handleSignOut} className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                <LogOut className="h-4 w-4" /> Logout
+              </button>
+            </>
+          ) : (
+            <Link to="/auth" className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+              <User className="h-4 w-4" /> Login
+            </Link>
+          )}
           <Link to="/cart" className="relative text-muted-foreground transition-colors hover:text-foreground">
             <ShoppingCart className="h-5 w-5" />
             {cartCount > 0 && (
@@ -46,6 +68,14 @@ const Navbar = ({ cartCount = 0 }: { cartCount?: number }) => {
             <Link to="/products" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">Laptops</Link>
             <Link to="/about" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">About</Link>
             <Link to="/contact" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">Contact</Link>
+            {user ? (
+              <>
+                <Link to="/my-orders" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">My Orders</Link>
+                <button onClick={() => { handleSignOut(); setMobileOpen(false); }} className="text-left text-sm text-muted-foreground">Logout</button>
+              </>
+            ) : (
+              <Link to="/auth" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">Login / Sign Up</Link>
+            )}
           </div>
         </div>
       )}
