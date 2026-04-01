@@ -3,20 +3,59 @@ import { Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const Cart = () => {
   const { items, removeFromCart, updateQuantity, clearCart, cartCount, cartTotal } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
+    if (!user) {
+      toast.error("Please sign in to place an order");
+      navigate("/auth");
+      return;
+    }
+
     const orderId = "LH" + Date.now().toString(36).toUpperCase();
+
+    // Save order to database
+    const { data: orderData, error: orderError } = await supabase
+      .from("orders")
+      .insert({ user_id: user.id, order_id: orderId, total: cartTotal })
+      .select()
+      .single();
+
+    if (orderError || !orderData) {
+      toast.error("Failed to place order. Please try again.");
+      return;
+    }
+
+    const orderItems = items.map(({ laptop, quantity }) => ({
+      order_id: orderData.id,
+      laptop_name: laptop.name,
+      laptop_brand: laptop.brand,
+      laptop_image: laptop.image,
+      laptop_price: laptop.price,
+      quantity,
+    }));
+
+    const { error: itemsError } = await supabase.from("order_items").insert(orderItems);
+    if (itemsError) {
+      toast.error("Failed to save order items.");
+      return;
+    }
+
+    // Also save to localStorage for the success page
     localStorage.setItem("lastOrder", JSON.stringify({
       items,
       total: cartTotal,
       orderId,
       orderDate: new Date().toISOString(),
     }));
+
     clearCart();
     toast.success("Order placed successfully! 🎉");
     navigate("/order-success");
@@ -84,7 +123,7 @@ const Cart = () => {
                 </div>
               </div>
               <button onClick={handleCheckout} className="mt-6 w-full rounded-lg bg-primary py-3 font-semibold text-primary-foreground hover:bg-primary/90 glow-cyan">
-                Place Order
+                {user ? "Place Order" : "Sign In to Place Order"}
               </button>
             </div>
           </div>
