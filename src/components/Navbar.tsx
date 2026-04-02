@@ -29,6 +29,7 @@ const Navbar = ({ cartCount = 0 }: { cartCount?: number }) => {
           <Link to="/products" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Laptops</Link>
           <Link to="/about" className="text-sm text-muted-foreground transition-colors hover:text-foreground">About</Link>
           <Link to="/contact" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Contact</Link>
+          <Link to="/admin" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Admin</Link>
         </div>
 
         <div className="flex items-center gap-4">
