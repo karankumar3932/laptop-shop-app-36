@@ -69,6 +69,7 @@ const Navbar = ({ cartCount = 0 }: { cartCount?: number }) => {
             <Link to="/products" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">Laptops</Link>
             <Link to="/about" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">About</Link>
             <Link to="/contact" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">Contact</Link>
+            <Link to="/admin" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">Admin</Link>
             {user ? (
               <>
                 <Link to="/my-orders" onClick={() => setMobileOpen(false)} className="text-sm text-muted-foreground">My Orders</Link>
