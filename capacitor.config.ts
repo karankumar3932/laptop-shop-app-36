@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'LaptopHub',
   webDir: 'dist',
   server: {
-    url: 'https://c90ea309-67f4-4f69-89e1-8063a15a1f2d.lovableproject.com?forceHideBadge=true',
+    url: 'https://laptop-shop-app-36.vercel.app',   // 👈 YAHAN APNA REAL WEBSITE DAL
     cleartext: true
   }
 };
